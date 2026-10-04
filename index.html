@@ -161,7 +161,6 @@
             transform: scale(var(--card-scale, 0.84)) !important;
             opacity: var(--card-opacity, 0.65);
             transform-origin: center center;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, box-shadow 0.3s ease;
             will-change: transform, opacity;
         }
 
@@ -170,6 +169,7 @@
             opacity: 1 !important;
             box-shadow: 0 0 0 2px rgba(234, 88, 12, .5), 0 24px 48px -12px rgba(0, 0, 0, .35) !important;
             z-index: 10;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
         }
 
         /* Lightbox fade & zoom */
@@ -437,7 +437,7 @@
                 <h2 class="font-display text-2xl md:text-3xl font-bold mb-8">Other Projects<span class="text-brand">.</span></h2>
 
                 <div class="relative w-screen left-1/2 -translate-x-1/2">
-                    <div id="galleryTrack" class="scroll-smooth snap-x snap-mandatory flex gap-4 md:gap-5 overflow-x-auto no-scrollbar py-8 px-6 md:px-14">
+                    <div id="galleryTrack" class="snap-x snap-proximity md:snap-mandatory flex gap-4 md:gap-5 overflow-x-auto no-scrollbar py-8 px-6 md:px-14 overscroll-x-contain touch-pan-x">
                         <img src="images/gallery/G-1.jpg" alt="Other Project 1" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
                         <img src="images/gallery/G-2.jpg" alt="Other Project 2" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
                         <img src="images/gallery/G-3.jpg" alt="Other Project 3" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
@@ -684,7 +684,13 @@
 
             // Gallery scroll buttons & scale-on-scroll animation (zoom effect from small to big)
             const galleryTrack = document.getElementById('galleryTrack');
-            const galleryCards = document.querySelectorAll('.gallery-card');
+            const galleryCards = Array.from(document.querySelectorAll('.gallery-card'));
+
+            let cardCenters = [];
+            const cacheCardPositions = () => {
+                if (!galleryTrack || !galleryCards.length) return;
+                cardCenters = galleryCards.map(card => card.offsetLeft + card.offsetWidth / 2);
+            };
 
             const updateGalleryScale = () => {
                 if (!galleryTrack || !galleryCards.length) return;
@@ -696,14 +702,18 @@
                     return;
                 }
 
-                const trackRect = galleryTrack.getBoundingClientRect();
-                const trackCenter = trackRect.left + trackRect.width / 2;
-                const maxDist = trackRect.width * 0.52;
+                if (!cardCenters.length || cardCenters[0] === 0) {
+                    cacheCardPositions();
+                }
 
-                galleryCards.forEach(card => {
-                    const cardRect = card.getBoundingClientRect();
-                    const cardCenter = cardRect.left + cardRect.width / 2;
-                    const dist = Math.abs(trackCenter - cardCenter);
+                const trackWidth = galleryTrack.clientWidth;
+                const scrollLeft = galleryTrack.scrollLeft;
+                const trackCenterInScroll = scrollLeft + trackWidth / 2;
+                const maxDist = trackWidth * 0.52;
+
+                for (let i = 0; i < galleryCards.length; i++) {
+                    const cardCenter = cardCenters[i] || (galleryCards[i].offsetLeft + galleryCards[i].offsetWidth / 2);
+                    const dist = Math.abs(trackCenterInScroll - cardCenter);
                     const norm = Math.min(dist / maxDist, 1);
 
                     // Cosine easing: 1 at focal center, 0 at edge
@@ -711,9 +721,9 @@
                     const scale = 0.82 + (ease * 0.26); // 0.82 at edge -> 1.08 at center
                     const opacity = 0.65 + (ease * 0.35); // 0.65 at edge -> 1.0 at center
 
-                    card.style.setProperty('--card-scale', scale.toFixed(3));
-                    card.style.setProperty('--card-opacity', opacity.toFixed(3));
-                });
+                    galleryCards[i].style.setProperty('--card-scale', scale.toFixed(3));
+                    galleryCards[i].style.setProperty('--card-opacity', opacity.toFixed(3));
+                }
             };
 
             let galleryTicking = false;
@@ -728,14 +738,26 @@
             };
 
             galleryTrack?.addEventListener('scroll', onGalleryScroll, { passive: true });
-            window.addEventListener('resize', onGalleryScroll, { passive: true });
-            window.addEventListener('load', updateGalleryScale);
+            window.addEventListener('resize', () => {
+                cacheCardPositions();
+                onGalleryScroll();
+            }, { passive: true });
+            window.addEventListener('load', () => {
+                cacheCardPositions();
+                updateGalleryScale();
+            });
+
+            // Initial calculations
+            cacheCardPositions();
             updateGalleryScale();
-            setTimeout(updateGalleryScale, 100);
+            setTimeout(() => {
+                cacheCardPositions();
+                updateGalleryScale();
+            }, 120);
 
             const scrollGallery = (dir) => {
                 if (!galleryTrack) return;
-                const scrollAmount = Math.max(240, galleryTrack.clientWidth * 0.6);
+                const scrollAmount = Math.max(220, galleryTrack.clientWidth * 0.6);
                 galleryTrack.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
             };
             document.getElementById('galleryPrev')?.addEventListener('click', () => scrollGallery(-1));
