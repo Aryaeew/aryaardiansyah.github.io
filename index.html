@@ -138,7 +138,7 @@
             transform: translateY(0);
         }
 
-        img.project-media {
+        img.project-media:not(.gallery-card) {
             position: relative;
             overflow: hidden;
             border-radius: 1rem;
@@ -148,28 +148,34 @@
             -webkit-backface-visibility: hidden;
         }
 
-        img.project-media:hover {
+        img.project-media:not(.gallery-card):hover {
             transform: perspective(1000px) rotateX(6deg) rotateY(-6deg) scale(1.04);
             box-shadow: 0 0 0 1.5px rgba(234, 88, 12, .45), 0 28px 56px -16px rgba(0, 0, 0, .32);
             z-index: 2;
         }
 
         /* Gallery cards scale-on-scroll animation (coverflow zoom) */
-        .gallery-card {
-            --card-scale: 0.84;
-            --card-opacity: 0.65;
-            transform: scale(var(--card-scale, 0.84)) !important;
-            opacity: var(--card-opacity, 0.65);
+        img.gallery-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            transform: scale(var(--card-scale, 0.86)) !important;
             transform-origin: center center;
-            will-change: transform, opacity;
+            opacity: 1 !important;
+            transition: none !important;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            scroll-snap-stop: always;
         }
 
-        .gallery-card:hover {
-            transform: scale(calc(var(--card-scale, 1) * 1.06)) !important;
-            opacity: 1 !important;
-            box-shadow: 0 0 0 2px rgba(234, 88, 12, .5), 0 24px 48px -12px rgba(0, 0, 0, .35) !important;
-            z-index: 10;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        @media (hover: hover) and (pointer: fine) {
+            img.gallery-card:hover {
+                transform: scale(calc(var(--card-scale, 0.86) * 1.06)) !important;
+                box-shadow: 0 0 0 2px rgba(234, 88, 12, .5), 0 20px 40px -10px rgba(0, 0, 0, .3) !important;
+                z-index: 10;
+                transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+            }
         }
 
         /* Lightbox fade & zoom */
@@ -437,25 +443,25 @@
                 <h2 class="font-display text-2xl md:text-3xl font-bold mb-8">Other Projects<span class="text-brand">.</span></h2>
 
                 <div class="relative w-screen left-1/2 -translate-x-1/2">
-                    <div id="galleryTrack" class="snap-x snap-proximity md:snap-mandatory flex gap-4 md:gap-5 overflow-x-auto no-scrollbar py-8 px-6 md:px-14 overscroll-x-contain touch-pan-x">
-                        <img src="images/gallery/G-1.jpg" alt="Other Project 1" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-2.jpg" alt="Other Project 2" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-3.jpg" alt="Other Project 3" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-4.jpg" alt="Other Project 4" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-5.jpg" alt="Other Project 5" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-6.jpg" alt="Other Project 6" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-7.jpg" alt="Other Project 7" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-8.jpg" alt="Other Project 8" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-9.jpg" alt="Other Project 9" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-10.jpg" alt="Other Project 10" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-11.jpg" alt="Other Project 11" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-12.jpg" alt="Other Project 12" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-13.jpg" alt="Other Project 13" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-14.jpg" alt="Other Project 14" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-15.jpg" alt="Other Project 15" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-16.jpg" alt="Other Project 16" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-17.jpg" alt="Other Project 17" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
-                        <img src="images/gallery/G-18.jpg" alt="Other Project 18" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                    <div id="galleryTrack" class="snap-x snap-mandatory flex gap-4 md:gap-5 overflow-x-auto no-scrollbar py-8 px-6 md:px-14 overscroll-x-contain touch-pan-x select-none">
+                        <img src="images/gallery/G-1.jpg" alt="Other Project 1" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-2.jpg" alt="Other Project 2" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-3.jpg" alt="Other Project 3" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-4.jpg" alt="Other Project 4" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-5.jpg" alt="Other Project 5" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-6.jpg" alt="Other Project 6" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-7.jpg" alt="Other Project 7" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-8.jpg" alt="Other Project 8" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-9.jpg" alt="Other Project 9" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-10.jpg" alt="Other Project 10" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-11.jpg" alt="Other Project 11" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-12.jpg" alt="Other Project 12" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-13.jpg" alt="Other Project 13" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-14.jpg" alt="Other Project 14" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-15.jpg" alt="Other Project 15" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-16.jpg" alt="Other Project 16" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-17.jpg" alt="Other Project 17" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-18.jpg" alt="Other Project 18" loading="lazy" class="project-media gallery-card snap-center snap-always shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
                     </div>
 
                     <button id="galleryPrev" type="button" aria-label="Geser kiri" class="absolute top-1/2 -translate-y-1/2 left-3 md:left-6 z-20 w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-full bg-brand text-white shadow-xl hover:bg-brand-dark hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer">
@@ -695,10 +701,7 @@
             const updateGalleryScale = () => {
                 if (!galleryTrack || !galleryCards.length) return;
                 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    galleryCards.forEach(c => {
-                        c.style.setProperty('--card-scale', '1');
-                        c.style.setProperty('--card-opacity', '1');
-                    });
+                    galleryCards.forEach(c => c.style.setProperty('--card-scale', '1'));
                     return;
                 }
 
@@ -709,7 +712,7 @@
                 const trackWidth = galleryTrack.clientWidth;
                 const scrollLeft = galleryTrack.scrollLeft;
                 const trackCenterInScroll = scrollLeft + trackWidth / 2;
-                const maxDist = trackWidth * 0.52;
+                const maxDist = trackWidth * 0.55;
 
                 for (let i = 0; i < galleryCards.length; i++) {
                     const cardCenter = cardCenters[i] || (galleryCards[i].offsetLeft + galleryCards[i].offsetWidth / 2);
@@ -718,11 +721,9 @@
 
                     // Cosine easing: 1 at focal center, 0 at edge
                     const ease = Math.cos(norm * Math.PI) * 0.5 + 0.5;
-                    const scale = 0.82 + (ease * 0.26); // 0.82 at edge -> 1.08 at center
-                    const opacity = 0.65 + (ease * 0.35); // 0.65 at edge -> 1.0 at center
+                    const scale = 0.86 + (ease * 0.20); // 0.86 at edge -> 1.06 at center
 
                     galleryCards[i].style.setProperty('--card-scale', scale.toFixed(3));
-                    galleryCards[i].style.setProperty('--card-opacity', opacity.toFixed(3));
                 }
             };
 
@@ -756,12 +757,62 @@
             }, 120);
 
             const scrollGallery = (dir) => {
-                if (!galleryTrack) return;
-                const scrollAmount = Math.max(220, galleryTrack.clientWidth * 0.6);
-                galleryTrack.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+                if (!galleryTrack || !galleryCards.length) return;
+                cacheCardPositions();
+                const trackCenter = galleryTrack.scrollLeft + galleryTrack.clientWidth / 2;
+                let closestIndex = 0;
+                let minDiff = Infinity;
+                for (let i = 0; i < cardCenters.length; i++) {
+                    const diff = Math.abs(cardCenters[i] - trackCenter);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closestIndex = i;
+                    }
+                }
+                const targetIndex = Math.max(0, Math.min(galleryCards.length - 1, closestIndex + dir));
+                const targetCenter = cardCenters[targetIndex];
+                const targetScrollLeft = targetCenter - galleryTrack.clientWidth / 2;
+                galleryTrack.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
             };
             document.getElementById('galleryPrev')?.addEventListener('click', () => scrollGallery(-1));
             document.getElementById('galleryNext')?.addEventListener('click', () => scrollGallery(1));
+
+            // Desktop mouse drag-to-scroll support
+            let isDown = false;
+            let startX = 0;
+            let startScrollLeft = 0;
+            let hasDragged = false;
+
+            galleryTrack?.addEventListener('mousedown', (e) => {
+                if (e.target.closest('button')) return;
+                isDown = true;
+                hasDragged = false;
+                startX = e.pageX - galleryTrack.offsetLeft;
+                startScrollLeft = galleryTrack.scrollLeft;
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (!isDown) return;
+                isDown = false;
+            });
+
+            galleryTrack?.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                const x = e.pageX - galleryTrack.offsetLeft;
+                const walk = (x - startX);
+                if (Math.abs(walk) > 5) {
+                    hasDragged = true;
+                }
+                galleryTrack.scrollLeft = startScrollLeft - walk;
+            });
+
+            galleryTrack?.addEventListener('click', (e) => {
+                if (hasDragged) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    hasDragged = false;
+                }
+            }, true);
 
             // Lightbox
             const lightbox = document.getElementById('lightbox');
