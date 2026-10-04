@@ -154,6 +154,24 @@
             z-index: 2;
         }
 
+        /* Gallery cards scale-on-scroll animation (coverflow zoom) */
+        .gallery-card {
+            --card-scale: 0.84;
+            --card-opacity: 0.65;
+            transform: scale(var(--card-scale, 0.84)) !important;
+            opacity: var(--card-opacity, 0.65);
+            transform-origin: center center;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, box-shadow 0.3s ease;
+            will-change: transform, opacity;
+        }
+
+        .gallery-card:hover {
+            transform: scale(calc(var(--card-scale, 1) * 1.06)) !important;
+            opacity: 1 !important;
+            box-shadow: 0 0 0 2px rgba(234, 88, 12, .5), 0 24px 48px -12px rgba(0, 0, 0, .35) !important;
+            z-index: 10;
+        }
+
         /* Lightbox fade & zoom */
         @keyframes lbIn {
             from { opacity: 0; }
@@ -204,7 +222,7 @@
             
             <div class="hidden md:flex gap-8 text-sm font-medium text-light-muted dark:text-dark-muted">
                 <a href="#about" class="hover:text-light-text dark:hover:text-dark-text transition-colors">About</a>
-                <a href="#portfolio" class="hover:text-light-text dark:hover:text-dark-text transition-colors">Selected Works</a>
+                <a href="#portfolio" class="hover:text-light-text dark:hover:text-dark-text transition-colors">Featured Project</a>
                 <a href="#skills" class="hover:text-light-text dark:hover:text-dark-text transition-colors">Capabilities</a>
                 <a href="#contact" class="hover:text-light-text dark:hover:text-dark-text transition-colors">Contact</a>
             </div>
@@ -228,7 +246,7 @@
         <div id="mobileMenu" class="mobile-menu absolute top-full left-0 right-0 md:hidden border-b border-light-border dark:border-dark-border bg-light-bg/95 dark:bg-dark-bg/95 backdrop-blur-md shadow-lg">
             <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-1 text-sm font-medium">
                 <a href="#about" class="mobile-nav-link py-3 text-light-muted dark:text-dark-muted hover:text-brand transition-colors">About</a>
-                <a href="#portfolio" class="mobile-nav-link py-3 text-light-muted dark:text-dark-muted hover:text-brand transition-colors">Selected Works</a>
+                <a href="#portfolio" class="mobile-nav-link py-3 text-light-muted dark:text-dark-muted hover:text-brand transition-colors">Featured Project</a>
                 <a href="#skills" class="mobile-nav-link py-3 text-light-muted dark:text-dark-muted hover:text-brand transition-colors">Capabilities</a>
                 <a href="#contact" class="mobile-nav-link py-3 text-light-muted dark:text-dark-muted hover:text-brand transition-colors">Contact</a>
                 <a href="mailto:arya12082017@gmail.com" class="mt-2 inline-flex justify-center bg-brand text-white px-5 py-3 hover:bg-brand-dark transition-colors">Hire Me</a>
@@ -313,7 +331,7 @@
 
     <section id="portfolio" class="py-16 md:py-24 px-6 bg-grid-pattern">
         <div class="max-w-6xl mx-auto">
-            <h2 class="font-display text-4xl font-bold mb-16 reveal">Selected Works<span class="text-brand">.</span></h2>
+            <h2 class="font-display text-4xl font-bold mb-16 reveal">Featured Project<span class="text-brand">.</span></h2>
             
             <div class="space-y-24">
                 
@@ -412,6 +430,41 @@
                     </div>
                 </div>
 
+            </div>
+
+            <!-- Other Projects -->
+            <div class="mt-24 reveal">
+                <h2 class="font-display text-2xl md:text-3xl font-bold mb-8">Other Projects<span class="text-brand">.</span></h2>
+
+                <div class="relative w-screen left-1/2 -translate-x-1/2">
+                    <div id="galleryTrack" class="scroll-smooth snap-x snap-mandatory flex gap-4 md:gap-5 overflow-x-auto no-scrollbar py-8 px-6 md:px-14">
+                        <img src="images/gallery/G-1.jpg" alt="Other Project 1" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-2.jpg" alt="Other Project 2" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-3.jpg" alt="Other Project 3" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-4.jpg" alt="Other Project 4" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-5.jpg" alt="Other Project 5" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-6.jpg" alt="Other Project 6" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-7.jpg" alt="Other Project 7" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-8.jpg" alt="Other Project 8" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-9.jpg" alt="Other Project 9" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-10.jpg" alt="Other Project 10" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-11.jpg" alt="Other Project 11" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-12.jpg" alt="Other Project 12" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-13.jpg" alt="Other Project 13" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-14.jpg" alt="Other Project 14" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-15.jpg" alt="Other Project 15" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-16.jpg" alt="Other Project 16" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-17.jpg" alt="Other Project 17" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                        <img src="images/gallery/G-18.jpg" alt="Other Project 18" loading="lazy" class="project-media gallery-card snap-center shrink-0 w-40 sm:w-48 md:w-52 lg:w-56 aspect-[3/4] object-cover rounded-2xl border border-light-border dark:border-dark-border cursor-zoom-in shadow-md">
+                    </div>
+
+                    <button id="galleryPrev" type="button" aria-label="Geser kiri" class="absolute top-1/2 -translate-y-1/2 left-3 md:left-6 z-20 w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-full bg-brand text-white shadow-xl hover:bg-brand-dark hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer">
+                        <i class="ph ph-arrow-left text-lg md:text-xl"></i>
+                    </button>
+                    <button id="galleryNext" type="button" aria-label="Geser kanan" class="absolute top-1/2 -translate-y-1/2 right-3 md:right-6 z-20 w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-full bg-brand text-white shadow-xl hover:bg-brand-dark hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer">
+                        <i class="ph ph-arrow-right text-lg md:text-xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -628,6 +681,65 @@
             window.addEventListener('resize', () => {
                 if (window.innerWidth >= 768) setMenu(false);
             });
+
+            // Gallery scroll buttons & scale-on-scroll animation (zoom effect from small to big)
+            const galleryTrack = document.getElementById('galleryTrack');
+            const galleryCards = document.querySelectorAll('.gallery-card');
+
+            const updateGalleryScale = () => {
+                if (!galleryTrack || !galleryCards.length) return;
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    galleryCards.forEach(c => {
+                        c.style.setProperty('--card-scale', '1');
+                        c.style.setProperty('--card-opacity', '1');
+                    });
+                    return;
+                }
+
+                const trackRect = galleryTrack.getBoundingClientRect();
+                const trackCenter = trackRect.left + trackRect.width / 2;
+                const maxDist = trackRect.width * 0.52;
+
+                galleryCards.forEach(card => {
+                    const cardRect = card.getBoundingClientRect();
+                    const cardCenter = cardRect.left + cardRect.width / 2;
+                    const dist = Math.abs(trackCenter - cardCenter);
+                    const norm = Math.min(dist / maxDist, 1);
+
+                    // Cosine easing: 1 at focal center, 0 at edge
+                    const ease = Math.cos(norm * Math.PI) * 0.5 + 0.5;
+                    const scale = 0.82 + (ease * 0.26); // 0.82 at edge -> 1.08 at center
+                    const opacity = 0.65 + (ease * 0.35); // 0.65 at edge -> 1.0 at center
+
+                    card.style.setProperty('--card-scale', scale.toFixed(3));
+                    card.style.setProperty('--card-opacity', opacity.toFixed(3));
+                });
+            };
+
+            let galleryTicking = false;
+            const onGalleryScroll = () => {
+                if (!galleryTicking) {
+                    requestAnimationFrame(() => {
+                        updateGalleryScale();
+                        galleryTicking = false;
+                    });
+                    galleryTicking = true;
+                }
+            };
+
+            galleryTrack?.addEventListener('scroll', onGalleryScroll, { passive: true });
+            window.addEventListener('resize', onGalleryScroll, { passive: true });
+            window.addEventListener('load', updateGalleryScale);
+            updateGalleryScale();
+            setTimeout(updateGalleryScale, 100);
+
+            const scrollGallery = (dir) => {
+                if (!galleryTrack) return;
+                const scrollAmount = Math.max(240, galleryTrack.clientWidth * 0.6);
+                galleryTrack.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+            };
+            document.getElementById('galleryPrev')?.addEventListener('click', () => scrollGallery(-1));
+            document.getElementById('galleryNext')?.addEventListener('click', () => scrollGallery(1));
 
             // Lightbox
             const lightbox = document.getElementById('lightbox');
